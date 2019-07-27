@@ -1,0 +1,67 @@
+<div class="container mt-2">
+  <ng-template #customLoadingTemplate>
+    <div class="custom-class">
+      <h3>
+        Loading...
+      </h3>
+    </div>
+  </ng-template>
+  <ngx-loading [show]="form.data.isLoading" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate"></ngx-loading>
+  <h3 class="text-center">Select a purchase amount</h3>
+  <div class="row alert-danger m-1" *ngIf="form.error.order">
+    <h6>{{form.error.order}}</h6>
+  </div>
+  <div class="row">
+    <div class="col-md-3 col-sm-6 mb-1">
+      <button type="submit" class=btn [ngClass]="[!form.data.isOther && form.data.order.amount==20 ? 'active-btn' : 'inactive-btn']" (click)="updateOrderAmount(20)">
+        RM 20
+      </button>
+    </div>
+    <div class="col-md-3 col-sm-6 mb-1">
+      <button type="submit" class=btn [ngClass]="[!form.data.isOther && form.data.order.amount==50 ? 'active-btn' : 'inactive-btn']" (click)="updateOrderAmount(50)">
+        RM 50
+      </button>
+    </div>
+    <div class="col-md-3 col-sm-6 mb-1">
+      <button type="submit" class=btn [ngClass]="[!form.data.isOther && form.data.order.amount==100 ? 'active-btn' : 'inactive-btn']" (click)="updateOrderAmount(100)">
+        RM 100
+      </button>
+    </div>
+    <div class="col-md-3 col-sm-6 mb-1">
+      <button type="submit" class=btn [ngClass]="[form.data.isOther ? 'active-btn' : 'inactive-btn']" (click)="updateOrderAmount(0)">
+        Others
+      </button>
+    </div>
+  </div>
+  <div class="mt-2 input-group mb-3" *ngIf="form.data.isOther">
+    <div class="input-group-prepend">
+      <span class="input-group-text">RM</span>
+    </div>
+    <input type="number" class="form-control" aria-label="Amount" [(ngModel)]="form.data.order.amount">
+    <div class="input-group-append">
+      <span class="input-group-text">.00</span>
+    </div>
+  </div>
+  <hr>
+  <div class="verify-pin-div">
+    <div class="row m-1">
+      <h5>Please key in your pin for verification.</h5>
+    </div>
+    <div class="row m-1" *ngIf="form.error.pin">
+      <h6 class="alert-danger">{{form.error.pin}}</h6>
+    </div>
+    <div class="row m-1" *ngIf="form.data.isVerified">
+      <h6 class="alert-info">Verified</h6>
+    </div>
+    <div class="row align-content-center m-1">
+      <input type="text" class="form-control col-md-3" type="password" [(ngModel)]="form.data.order.pin" [disabled]="form.data.isVerified">
+      <!--<span class="col-md-9">
+        <button class="btn submit-btn" (click)="verifyUserPin()" [disabled]="!form.data.order.pin || form.data.isVerified">Verify</button>
+      </span>-->
+    </div>
+  </div>
+  <div class="row col-md-12 justify-content-center mt-1">
+    <button class="btn submit-btn-large" (click)="createOrder()">Submit</button>
+  </div>
+</div>
+

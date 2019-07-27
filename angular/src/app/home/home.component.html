@@ -1,0 +1,65 @@
+<div class="container">
+  <div class = "form-horizontal mt-2">
+    <div class="row alert-danger m-1" *ngIf="form.error.search">
+      <h6>{{form.error.search}}</h6>
+    </div>
+    <div class = "form-group">
+      <label for = "orderId" class = "col-sm-2 control-label">Order Id</label>
+      <div class = "col-sm-10">
+        <input type = "number" min="1" step="1" onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+               title="Numbers only" class = "form-control" id = "orderId" placeholder = "Order Id" [(ngModel)]="form.data.orderSearch.order_id">
+      </div>
+    </div>
+    <div class = "form-group">
+      <label for = "amountStart" class = "col-sm-2 control-label">Amount</label>
+      <div class = "col-sm-4">
+        <input type = "number" class = "form-control" id = "amountStart" placeholder = "10.00" [(ngModel)]="form.data.orderSearch.amount_start">
+      </div>
+      <label class = "col-sm-2 control-label">To</label>
+      <div class = "col-sm-4">
+        <input type = "number" class = "form-control" id = "amountEnd" placeholder = "10.00" [(ngModel)]="form.data.orderSearch.amount_end">
+      </div>
+    </div>
+    <div class = "form-group">
+      <label for = "status" class = "col-sm-2 control-label">Status</label>
+      <div class = "col-sm-10">
+        <select id="status" [(ngModel)]="form.data.orderSearch.status" class="form-control">
+          <option *ngFor="let status of form.options.status" [value]="status" >{{status}}</option>
+        </select>
+      </div>
+    </div>
+    <div class = "form-group">
+      <div class = "col-sm-offset-2 col-sm-10">
+        <button type = "submit" class = "btn submit-btn" (click)="onSearch()">Search</button>
+      </div>
+    </div>
+  </div>
+  <table class="table table-striped">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Amount</th>
+    <th>Status</th>
+    <th>User Id</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let order of form.data.orders">
+    <td>{{ order.order_id }}</td>
+    <td>{{ order.amount }}</td>
+    <td>{{ order.status }}</td>
+    <td>{{ order.user_id }}</td>
+    <td>
+      <div>
+        <button class="btn inactive-btn" (click)="viewOrder(order.order_id)">View Order</button>
+      </div>
+      <div>
+        <button class="btn inactive-btn" (click)="cancelOrder(order.order_id)" [disabled]="order.status=='cancelled'">Cancel Order</button>
+      </div>
+    </td>
+  </tr>
+  </tbody>
+</table>
+</div>
+

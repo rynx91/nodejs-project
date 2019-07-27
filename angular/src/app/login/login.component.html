@@ -1,0 +1,24 @@
+<div class="container">
+  <div class = "form-horizontal">
+    <div class="row alert-danger m-1" *ngIf="form.error.login">
+      <h6>{{form.error.login}}</h6>
+    </div>
+    <div class = "form-group">
+      <label for = "userId" class = "control-label">Username *</label>
+      <div>
+        <input type = "text" class = "form-control" id = "userId" placeholder = "Username" [(ngModel)]="form.data.username">
+      </div>
+    </div>
+    <div class = "form-group">
+      <label for = "password" class = "control-label">Password *</label>
+      <div>
+        <input type = "password" class = "form-control" id = "password" placeholder = "password" [(ngModel)]="form.data.password">
+      </div>
+    </div>
+    <div class = "form-group">
+      <div class = "col-sm-offset-2 col-sm-10">
+        <button type = "submit" class = "btn submit-btn" (click)="onLogin()">Login</button>
+      </div>
+    </div>
+  </div>
+</div>
